@@ -167,6 +167,8 @@ Este projeto ainda não possui licença definida.
 
 [Next.js caching](https://nextjs.org/docs/app/building-your-application/caching)
 
+[Auth.js](https://authjs.dev/)
+
 [Tanstack](https://tanstack.com/)
 
 [React-hook-forms](https://react-hook-form.com/)
