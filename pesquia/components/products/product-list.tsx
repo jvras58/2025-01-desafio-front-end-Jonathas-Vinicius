@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetcher } from '@/lib/api';
 import {
-  Edit,
+  // Edit,
   MoreHorizontal,
-  Trash,
+  // Trash,
   Loader2,
   AlertCircle,
 } from 'lucide-react';
@@ -85,8 +85,9 @@ export function ProductList() {
       toast.success('Produto excluído com sucesso!');
       queryClient.invalidateQueries({ queryKey: ['products'] });
     },
-    onError: (err: any) => {
-      toast.error(`Erro ao excluir: ${err.message}`);
+    onError: (err: unknown) => {
+      const message = err instanceof Error ? err.message : String(err);
+      toast.error(`Erro ao excluir: ${message}`);
     },
   });
 
@@ -151,13 +152,10 @@ export function ProductList() {
                 </TableCell>
                 <TableCell>{p.stock}</TableCell>
                 <TableCell>
-                  <Badge
-                    variant={
-                      (statusMap[p.status] || statusMap['em-analise'])
-                        .variant as any
-                    }
+                <Badge
+                    variant={statusMap[p.status]?.variant ?? statusMap['em-analise'].variant}
                   >
-                    {(statusMap[p.status] || statusMap['em-analise']).label}
+                    {statusMap[p.status]?.label ?? statusMap['em-analise'].label}
                   </Badge>
                 </TableCell>
                 <TableCell className="text-right">
