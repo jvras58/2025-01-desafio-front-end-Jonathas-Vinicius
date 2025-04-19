@@ -6,11 +6,11 @@ import { useState } from 'react';
 import {
   LayoutDashboard,
   Package,
-  ShoppingCart,
-  TrendingUp,
-  Settings,
+  // ShoppingCart,
+  // TrendingUp,
+  // Settings,
   Brain,
-  Users,
+  // Users,
   Menu,
   X,
 } from 'lucide-react';
