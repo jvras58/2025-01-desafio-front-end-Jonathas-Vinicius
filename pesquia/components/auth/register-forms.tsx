@@ -27,7 +27,7 @@ import {
   RegisterformSchema,
   RegisterFormValues,
 } from '@/schemas/register-schema';
-import { register } from '@/app/actions/register/register';
+import { register } from '@/actions/register/register';
 
 type FormValues = z.infer<typeof RegisterformSchema>;
 
