@@ -16,7 +16,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AlertCircle } from "lucide-react"
 import type { z } from "zod"
 import { RegisterformSchema, RegisterFormValues } from "@/schemas/register-schema"
-import { register } from "@/actions/register/register"
+import { register } from "@/app/actions/register/register"
 
 type FormValues = z.infer<typeof RegisterformSchema>
 
