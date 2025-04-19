@@ -1,12 +1,13 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useForm, useWatch } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import { Textarea } from '@/components/ui/textarea';
+import type { Product as ProductModel } from '@/lib/generated/prisma';
 import {
   Select,
   SelectContent,
@@ -56,7 +57,7 @@ export function ProductForm() {
 
   const mutation = useMutation({
     mutationFn: (data: ProductFormValues) =>
-      fetcher<{ product: any }>('/api/product', {
+      fetcher<{ product: ProductModel }>('/api/product', {
         method: 'POST',
         body: JSON.stringify(data),
       }),
