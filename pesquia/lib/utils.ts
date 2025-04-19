@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 // import { prisma } from '@/lib/db';
-import { auth } from '@/lib/auth';
+// import { auth } from '@/lib/auth';
 
 export const isServer = typeof window === 'undefined';
 

@@ -2,8 +2,10 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import bcryptjs from 'bcryptjs';
 import { JWT } from 'next-auth/jwt';
-import NextAuth, { Session } from 'next-auth';
+import type { AdapterUser } from 'next-auth/adapters';
+import NextAuth, { User ,Session } from 'next-auth';
 import { prisma } from './db';
+
 
 export const { auth, signIn, signOut, handlers } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -18,7 +20,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
         email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<AdapterUser | null> {
         if (
           !credentials?.email ||
           typeof credentials.email !== 'string' ||
@@ -51,6 +53,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
             id: user.id,
             name: user.name,
             email: user.email,
+            emailVerified: user.emailVerified,
             // role: user.role, // TODO: implementar role
           };
         } catch (error) {
@@ -65,9 +68,9 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
     error: '/auth/error',
   },
   callbacks: {
-    async jwt({ token, user }: { token: JWT; user: any }) {
+    async jwt({ token, user }: { token: JWT; user?: User | AdapterUser }) {
       if (user) {
-        token.id = user.id;
+        token.id = (user as AdapterUser).id;
         // token.role = user.role; // TODO: implementar role
       }
       return token;
