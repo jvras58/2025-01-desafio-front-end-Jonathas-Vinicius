@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { generateInsights } from '@/lib/gemini';
+// import { generateInsights } from '@/lib/gemini';
 // import { RecentSales } from './utils';
 
 //TODO: usar ambos com o usequery...
