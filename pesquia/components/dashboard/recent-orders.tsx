@@ -16,6 +16,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
+import type { VariantProps } from 'class-variance-authority';
+import { badgeVariants } from '@/components/ui/badge';
 
 //TODO: IMPLEMENTAR A BUSCA DOS PEDIDOS NO BANCO DE DADOS
 const orders = [
@@ -56,11 +58,14 @@ const orders = [
   },
 ];
 
-const statusMap = {
+type BadgeVariant = VariantProps<typeof badgeVariants>['variant'];
+type OrderStatus = 'completed' | 'processing' | 'pending' | 'cancelled';
+
+const statusMap: Record<OrderStatus, { label: string; variant: BadgeVariant }> = {
   completed: { label: 'Concluído', variant: 'default' },
   processing: { label: 'Processando', variant: 'secondary' },
-  pending: { label: 'Pendente', variant: 'warning' },
-  cancelled: { label: 'Cancelado', variant: 'destructive' },
+  pending:    { label: 'Pendente',   variant: 'warning' },
+  cancelled:  { label: 'Cancelado',  variant: 'destructive' },
 } as const;
 
 export function RecentOrders() {
@@ -89,14 +94,9 @@ export function RecentOrders() {
                 <TableCell className="font-medium">{order.id}</TableCell>
                 <TableCell>{order.customer}</TableCell>
                 <TableCell>
-                  <Badge
-                    variant={
-                      statusMap[order.status as keyof typeof statusMap]
-                        .variant as any
-                    }
-                  >
-                    {statusMap[order.status as keyof typeof statusMap].label}
-                  </Badge>
+                <Badge variant={statusMap[order.status as OrderStatus].variant}>
+                  {statusMap[order.status as OrderStatus].label}
+                </Badge>
                 </TableCell>
                 <TableCell>
                   {format(order.date, "dd 'de' MMMM 'de' yyyy", {
