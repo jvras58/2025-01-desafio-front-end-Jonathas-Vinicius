@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
@@ -39,7 +39,7 @@ export function RegisterForm() {
   // const callbackUrl = searchParams?.get("callbackUrl") || "/dashboard"
 
   const form = useForm<RegisterFormValues>({
-    resolver: zodResolver(RegisterformSchema) as any,
+    resolver: zodResolver(RegisterformSchema),
     defaultValues: {
       name: '',
       email: '',

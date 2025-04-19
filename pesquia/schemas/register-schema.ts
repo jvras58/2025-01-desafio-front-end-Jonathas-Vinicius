@@ -14,7 +14,7 @@ export const RegisterformSchema = z
     confirmPassword: z.string().min(6, {
       message: 'A confirmação de senha deve ter pelo menos 6 caracteres.',
     }),
-    isBusinessOwner: z.boolean().default(false),
+    isBusinessOwner: z.boolean(),
     companyName: z.string().optional(),
     cnpj: z
       .string()
