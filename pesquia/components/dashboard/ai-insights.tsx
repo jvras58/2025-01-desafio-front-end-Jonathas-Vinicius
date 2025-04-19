@@ -25,7 +25,7 @@ export function AiInsights() {
           <div>
             <h4 className="font-semibold">Oportunidade de Crescimento</h4>
             <p className="text-sm text-muted-foreground">
-              Os produtos da categoria "Varas de Pesca" tiveram um aumento de
+              Os produtos da categoria &quot;Varas de Pesca&quot; tiveram um aumento de
               28% nas vendas no último trimestre. Considere aumentar o estoque e
               investir em marketing para esta categoria.
             </p>
@@ -47,7 +47,7 @@ export function AiInsights() {
           <div>
             <h4 className="font-semibold">Otimização de Preços</h4>
             <p className="text-sm text-muted-foreground">
-              Análise de mercado sugere que os preços dos "Anzóis Especiais"
+              Análise de mercado sugere que os preços dos &quot;Anzóis Especiais&quot;
               podem ser aumentados em 5-10% sem impacto significativo nas
               vendas, potencialmente aumentando a margem de lucro.
             </p>
