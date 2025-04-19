@@ -32,7 +32,7 @@ export const register = async (user: z.infer<typeof RegisterformSchema>) => {
     } = validationResult.data;
     const hashedPassword = await bcryptjs.hash(password, 10);
 
-    const result = await prisma.$transaction(async (tx: any) => {
+    const result = await prisma.$transaction(async (tx) => {
       const createdUser = await tx.user.create({
         data: {
           name,
@@ -42,11 +42,11 @@ export const register = async (user: z.infer<typeof RegisterformSchema>) => {
         },
       });
 
-      if (isBusinessOwner && companyName && cnpj && companyAddress) {
+      if (isBusinessOwner && companyName && cnpj && companyAddress && companyCep) {
         await tx.enterprise.create({
           data: {
             name: companyName,
-            cnpj: cnpj || null,
+            cnpj: cnpj,
             cep: companyCep,
             address: companyAddress,
             userId: createdUser.id,
