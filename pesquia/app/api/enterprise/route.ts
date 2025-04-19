@@ -7,7 +7,10 @@ export async function GET() {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Usuário não autenticado' }, { status: 401 });
+      return NextResponse.json(
+        { error: 'Usuário não autenticado' },
+        { status: 401 },
+      );
     }
     const enterprise = await prisma.enterprise.findFirst({
       where: { userId: session.user.id },
@@ -25,12 +28,18 @@ export async function GET() {
       },
     });
     if (!enterprise) {
-      return NextResponse.json({ error: 'Empresa não encontrada' }, { status: 404 });
+      return NextResponse.json(
+        { error: 'Empresa não encontrada' },
+        { status: 404 },
+      );
     }
     return NextResponse.json({ enterprise }, { status: 200 });
   } catch (error) {
     console.error('Erro ao buscar empresa:', error);
-    return NextResponse.json({ error: 'Erro ao buscar empresa' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Erro ao buscar empresa' },
+      { status: 500 },
+    );
   }
 }
 
@@ -38,7 +47,10 @@ export async function PUT(request: Request) {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Usuário não autenticado' }, { status: 401 });
+      return NextResponse.json(
+        { error: 'Usuário não autenticado' },
+        { status: 401 },
+      );
     }
 
     const body = await request.json();
@@ -46,7 +58,7 @@ export async function PUT(request: Request) {
     if (!parsed.success) {
       return NextResponse.json(
         { error: 'Dados inválidos', details: parsed.error.format() },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -55,7 +67,10 @@ export async function PUT(request: Request) {
       select: { id: true },
     });
     if (!existing) {
-      return NextResponse.json({ error: 'Empresa não encontrada' }, { status: 404 });
+      return NextResponse.json(
+        { error: 'Empresa não encontrada' },
+        { status: 404 },
+      );
     }
 
     const updated = await prisma.enterprise.update({
@@ -82,9 +97,15 @@ export async function PUT(request: Request) {
       },
     });
 
-    return NextResponse.json({ message: 'Empresa atualizada', enterprise: updated }, { status: 200 });
+    return NextResponse.json(
+      { message: 'Empresa atualizada', enterprise: updated },
+      { status: 200 },
+    );
   } catch (error) {
     console.error('Erro ao atualizar empresa:', error);
-    return NextResponse.json({ error: 'Erro ao atualizar empresa' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Erro ao atualizar empresa' },
+      { status: 500 },
+    );
   }
 }

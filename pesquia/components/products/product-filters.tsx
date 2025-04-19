@@ -1,13 +1,19 @@
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Search, Filter } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useState } from 'react';
+import { Search, Filter } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 export function ProductFilters() {
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState('');
 
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-center">
@@ -50,5 +56,5 @@ export function ProductFilters() {
         </Button>
       </div>
     </div>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-"use client"
+'use client';
 
-import Link from "next/link"
-import { signOut } from "next-auth/react"
-import { Fish, Bell, User, LogOut } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import Link from 'next/link';
+import { signOut } from 'next-auth/react';
+import { Fish, Bell, User, LogOut } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,15 +11,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { ThemeToggle } from "@/components/theme-toggle"
+} from '@/components/ui/dropdown-menu';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 interface DashboardHeaderProps {
   user: {
-    name?: string | null
-    email?: string | null
-    role?: string
-  }
+    name?: string | null;
+    email?: string | null;
+    role?: string;
+  };
 }
 
 export function DashboardHeader({ user }: DashboardHeaderProps) {
@@ -29,7 +29,9 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
         <div className="flex items-center gap-2">
           <Link href="/dashboard" className="flex items-center gap-2">
             <Fish className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold hidden sm:inline-block">pesquIA</span>
+            <span className="text-xl font-bold hidden sm:inline-block">
+              pesquIA
+            </span>
           </Link>
         </div>
         <div className="flex items-center gap-2 md:gap-4">
@@ -52,7 +54,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
                 <User className="mr-2 h-4 w-4" />
                 <span>Perfil</span>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
+              <DropdownMenuItem onClick={() => signOut({ callbackUrl: '/' })}>
                 <LogOut className="mr-2 h-4 w-4" />
                 <span>Sair</span>
               </DropdownMenuItem>
@@ -61,5 +63,5 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
         </div>
       </div>
     </header>
-  )
+  );
 }

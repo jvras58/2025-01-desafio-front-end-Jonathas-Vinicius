@@ -1,12 +1,12 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 // import { prisma } from '@/lib/db';
 import { auth } from '@/lib/auth';
 
-export const isServer = typeof window === "undefined";
+export const isServer = typeof window === 'undefined';
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 //TODO: Procurar um melhor lugar para colocar (Erro do Prisma Client no lado do cliente)
