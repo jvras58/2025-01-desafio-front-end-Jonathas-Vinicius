@@ -152,10 +152,14 @@ export function ProductList() {
                 </TableCell>
                 <TableCell>{p.stock}</TableCell>
                 <TableCell>
-                <Badge
-                    variant={statusMap[p.status]?.variant ?? statusMap['em-analise'].variant}
+                  <Badge
+                    variant={
+                      statusMap[p.status]?.variant ??
+                      statusMap['em-analise'].variant
+                    }
                   >
-                    {statusMap[p.status]?.label ?? statusMap['em-analise'].label}
+                    {statusMap[p.status]?.label ??
+                      statusMap['em-analise'].label}
                   </Badge>
                 </TableCell>
                 <TableCell className="text-right">

@@ -3,9 +3,8 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import bcryptjs from 'bcryptjs';
 import { JWT } from 'next-auth/jwt';
 import type { AdapterUser } from 'next-auth/adapters';
-import NextAuth, { User ,Session } from 'next-auth';
+import NextAuth, { User, Session } from 'next-auth';
 import { prisma } from './db';
-
 
 export const { auth, signIn, signOut, handlers } = NextAuth({
   adapter: PrismaAdapter(prisma),

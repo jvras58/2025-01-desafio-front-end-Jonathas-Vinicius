@@ -16,7 +16,7 @@ export const model = genAI.getGenerativeModel({
 //       Analise os seguintes dados de vendas dos últimos 30 dias e forneça insights sobre:
 //       - Tendências de vendas
 //       - Recomendações para otimização
-  
+
 //       Dados:
 //       ${JSON.stringify(salesData, null, 2)}
 //     `;

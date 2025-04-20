@@ -74,10 +74,10 @@ export function AiDashboard() {
           <p className="text-sm text-muted-foreground">
             A IA analisou 1.245 transações nos últimos 30 dias e identificou 3
             áreas críticas que precisam de atenção. As vendas de produtos da
-            categoria &quot;Varas de Pesca&quot; aumentaram 28%, enquanto as vendas de
-            &quot;Iscas Artificiais&quot; diminuíram 12%. Recomendamos revisar a
-            estratégia de preços para iscas artificiais e aumentar o estoque de
-            varas de pesca para atender à demanda crescente.
+            categoria &quot;Varas de Pesca&quot; aumentaram 28%, enquanto as
+            vendas de &quot;Iscas Artificiais&quot; diminuíram 12%. Recomendamos
+            revisar a estratégia de preços para iscas artificiais e aumentar o
+            estoque de varas de pesca para atender à demanda crescente.
           </p>
         </div>
       </CardContent>

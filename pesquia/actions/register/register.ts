@@ -42,7 +42,13 @@ export const register = async (user: z.infer<typeof RegisterformSchema>) => {
         },
       });
 
-      if (isBusinessOwner && companyName && cnpj && companyAddress && companyCep) {
+      if (
+        isBusinessOwner &&
+        companyName &&
+        cnpj &&
+        companyAddress &&
+        companyCep
+      ) {
         await tx.enterprise.create({
           data: {
             name: companyName,

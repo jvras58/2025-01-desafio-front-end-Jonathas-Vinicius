@@ -61,12 +61,13 @@ const orders = [
 type BadgeVariant = VariantProps<typeof badgeVariants>['variant'];
 type OrderStatus = 'completed' | 'processing' | 'pending' | 'cancelled';
 
-const statusMap: Record<OrderStatus, { label: string; variant: BadgeVariant }> = {
-  completed: { label: 'Concluído', variant: 'default' },
-  processing: { label: 'Processando', variant: 'secondary' },
-  pending:    { label: 'Pendente',   variant: 'warning' },
-  cancelled:  { label: 'Cancelado',  variant: 'destructive' },
-} as const;
+const statusMap: Record<OrderStatus, { label: string; variant: BadgeVariant }> =
+  {
+    completed: { label: 'Concluído', variant: 'default' },
+    processing: { label: 'Processando', variant: 'secondary' },
+    pending: { label: 'Pendente', variant: 'warning' },
+    cancelled: { label: 'Cancelado', variant: 'destructive' },
+  } as const;
 
 export function RecentOrders() {
   return (
@@ -94,9 +95,11 @@ export function RecentOrders() {
                 <TableCell className="font-medium">{order.id}</TableCell>
                 <TableCell>{order.customer}</TableCell>
                 <TableCell>
-                <Badge variant={statusMap[order.status as OrderStatus].variant}>
-                  {statusMap[order.status as OrderStatus].label}
-                </Badge>
+                  <Badge
+                    variant={statusMap[order.status as OrderStatus].variant}
+                  >
+                    {statusMap[order.status as OrderStatus].label}
+                  </Badge>
                 </TableCell>
                 <TableCell>
                   {format(order.date, "dd 'de' MMMM 'de' yyyy", {
