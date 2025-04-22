@@ -4,20 +4,8 @@ import axios from 'axios';
 
 //TODO: usar ambos com o usequery...
 
-//TODO: Formato Esperado da validação para o cep:
-// const cepSchema = z.string().regex(/^\d{5}-?\d{3}$/, {
-//     message: "CEP inválido. Use o formato 12345678 ou 12345-678."
-// });
 
-export const fetchAddressByCep = async (cep: string) => {
-  try {
-    const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-    return response.data;
-  } catch (error) {
-    console.error('Erro ao consultar o CEP:', error);
-    throw error;
-  }
-};
+
 
 //TODO: Formato Esperado da validação para o cnpj:
 // Esse regex valida tanto o CNPJ com formatação ("11.222.333/0001-81") quanto sem formatação ("11222333000181")

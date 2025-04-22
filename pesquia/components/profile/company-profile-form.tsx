@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect } from "react"
-import { useForm } from "react-hook-form"
+import { useEffect, useState } from "react"
+import { useForm, useWatch } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { Building2, MapPin, Phone, Mail, Loader2, AlertCircle } from "lucide-react"
@@ -29,6 +29,8 @@ interface EnterpriseData {
   }
 }
 
+
+
 export function CompanyProfileForm() {
   const queryClient = useQueryClient()
 
@@ -53,6 +55,10 @@ export function CompanyProfileForm() {
     },
     mode: "onChange",
   })
+
+  //TODO: usar o viacep para preencher os dados do endereço...
+  // const cep = useWatch({ control: form.control, name: 'companyCep' })
+
 
   useEffect(() => {
     if (enterpriseData?.enterprise) {
