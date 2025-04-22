@@ -51,11 +51,11 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
               <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-               <Link href="/perfil" className="flex items-center gap-2">
-                 <User className="mr-2 h-4 w-4" />
-                 <span>Perfil</span>
-               </Link>
-             </DropdownMenuItem>
+                <Link href="/perfil" className="flex items-center gap-2">
+                  <User className="mr-2 h-4 w-4" />
+                  <span>Perfil</span>
+                </Link>
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={() => signOut({ callbackUrl: '/' })}>
                 <LogOut className="mr-2 h-4 w-4" />
                 <span>Sair</span>

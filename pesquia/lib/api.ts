@@ -4,9 +4,6 @@ import axios from 'axios';
 
 //TODO: usar ambos com o usequery...
 
-
-
-
 //TODO: Formato Esperado da validação para o cnpj:
 // Esse regex valida tanto o CNPJ com formatação ("11.222.333/0001-81") quanto sem formatação ("11222333000181")
 // const cnpjSchema = z.string().regex(/^(\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2})$/, {

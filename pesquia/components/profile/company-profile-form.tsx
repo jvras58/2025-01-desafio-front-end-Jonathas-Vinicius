@@ -1,78 +1,101 @@
-"use client"
+'use client';
 
-import { useEffect, useState } from "react"
-import { useForm, useWatch } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { Building2, MapPin, Phone, Mail, Loader2, AlertCircle } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { toast } from 'sonner'
-import { enterpriseProfileFormValues, enterpriseSchema } from "@/schemas/enterprise-schema"
-import { fetcher } from "@/lib/api"
-import { Avatar, AvatarFallback } from "../ui/avatar"
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  Building2,
+  MapPin,
+  Phone,
+  Mail,
+  Loader2,
+  AlertCircle,
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import {
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { toast } from 'sonner';
+import {
+  enterpriseProfileFormValues,
+  enterpriseSchema,
+} from '@/schemas/enterprise-schema';
+import { fetcher } from '@/lib/api';
+import { Avatar, AvatarFallback } from '../ui/avatar';
 
 interface EnterpriseData {
   enterprise: {
-    id: string
-    name: string
-    cnpj: string
-    emailCommercial: string
-    phone: string
-    address: string
-    city: string
-    cep: string
-    createdAt: string
-    updatedAt: string
-  }
+    id: string;
+    name: string;
+    cnpj: string;
+    emailCommercial: string;
+    phone: string;
+    address: string;
+    city: string;
+    cep: string;
+    createdAt: string;
+    updatedAt: string;
+  };
 }
 
-
-
 export function CompanyProfileForm() {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
-  const { data: enterpriseData, isLoading: isFetching, error } = useQuery<EnterpriseData>({
+  const {
+    data: enterpriseData,
+    isLoading: isFetching,
+    error,
+  } = useQuery<EnterpriseData>({
     queryKey: ['enterprise'],
     queryFn: () => fetcher('/api/enterprise'),
     staleTime: Infinity,
-  })
+  });
 
   const form = useForm<enterpriseProfileFormValues>({
     resolver: zodResolver(enterpriseSchema),
     defaultValues: {
-      companyName: "",
-      cnpj: "",
-      companyCep: "",
-      address: "",
+      companyName: '',
+      cnpj: '',
+      companyCep: '',
+      address: '',
       // city: "",
       // state: "",
-      phone: "",
-      email: "",
-
+      phone: '',
+      email: '',
     },
-    mode: "onChange",
-  })
+    mode: 'onChange',
+  });
 
   //TODO: usar o viacep para preencher os dados do endereço... (/api/cep/{cep}) <-- Route no backend do next
   // const cep = useWatch({ control: form.control, name: 'companyCep' })
 
-
   useEffect(() => {
     if (enterpriseData?.enterprise) {
       form.reset({
-        companyName: enterpriseData.enterprise.name || "",
-        cnpj: enterpriseData.enterprise.cnpj || "",
-        companyCep: enterpriseData.enterprise.cep || "",
-        address: enterpriseData.enterprise.address || "",
-        city: enterpriseData.enterprise.city || "",
-        phone: enterpriseData.enterprise.phone || "",
-        email: enterpriseData.enterprise.emailCommercial || "",
-      })
+        companyName: enterpriseData.enterprise.name || '',
+        cnpj: enterpriseData.enterprise.cnpj || '',
+        companyCep: enterpriseData.enterprise.cep || '',
+        address: enterpriseData.enterprise.address || '',
+        city: enterpriseData.enterprise.city || '',
+        phone: enterpriseData.enterprise.phone || '',
+        email: enterpriseData.enterprise.emailCommercial || '',
+      });
     }
-  }, [enterpriseData, form])
+  }, [enterpriseData, form]);
 
   const mutation = useMutation({
     mutationFn: (data: enterpriseProfileFormValues) =>
@@ -89,17 +112,18 @@ export function CompanyProfileForm() {
         }),
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['enterprise'] })
+      queryClient.invalidateQueries({ queryKey: ['enterprise'] });
       toast.success('Empresa atualizada com sucesso', {
         description: 'As informações da empresa foram atualizadas.',
-      })
+      });
     },
-    onError: (error: any) => {
+
+    onError: (error: Error) => {
       toast.error('Erro ao atualizar empresa', {
         description: `Ocorreu um erro: ${error.message}`,
-      })
+      });
     },
-  })
+  });
 
   if (isFetching) {
     return (
@@ -123,7 +147,9 @@ export function CompanyProfileForm() {
     <>
       <CardHeader>
         <CardTitle>Dados da Empresa</CardTitle>
-        <CardDescription>Atualize as informações da sua empresa</CardDescription>
+        <CardDescription>
+          Atualize as informações da sua empresa
+        </CardDescription>
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit((data) => mutation.mutate(data))}>
@@ -147,7 +173,9 @@ export function CompanyProfileForm() {
 
             {/* Company Information Section */}
             <div className="space-y-4">
-              <h3 className="text-sm font-medium text-muted-foreground">Informações Básicas</h3>
+              <h3 className="text-sm font-medium text-muted-foreground">
+                Informações Básicas
+              </h3>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <FormField
                   control={form.control}
@@ -158,7 +186,11 @@ export function CompanyProfileForm() {
                       <FormControl>
                         <div className="relative">
                           <Building2 className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                          <Input className="pl-10" placeholder="Nome da sua empresa" {...field} />
+                          <Input
+                            className="pl-10"
+                            placeholder="Nome da sua empresa"
+                            {...field}
+                          />
                         </div>
                       </FormControl>
                       <FormMessage />
@@ -183,7 +215,9 @@ export function CompanyProfileForm() {
 
             {/* Contact Information Section */}
             <div className="space-y-4 pt-2">
-              <h3 className="text-sm font-medium text-muted-foreground">Contato</h3>
+              <h3 className="text-sm font-medium text-muted-foreground">
+                Contato
+              </h3>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <FormField
                   control={form.control}
@@ -194,7 +228,11 @@ export function CompanyProfileForm() {
                       <FormControl>
                         <div className="relative">
                           <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                          <Input className="pl-10" placeholder="contato@empresa.com" {...field} />
+                          <Input
+                            className="pl-10"
+                            placeholder="contato@empresa.com"
+                            {...field}
+                          />
                         </div>
                       </FormControl>
                       <FormMessage />
@@ -210,7 +248,11 @@ export function CompanyProfileForm() {
                       <FormControl>
                         <div className="relative">
                           <Phone className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                          <Input className="pl-10" placeholder="(00) 0000-0000" {...field} />
+                          <Input
+                            className="pl-10"
+                            placeholder="(00) 0000-0000"
+                            {...field}
+                          />
                         </div>
                       </FormControl>
                       <FormMessage />
@@ -222,7 +264,9 @@ export function CompanyProfileForm() {
 
             {/* Address Section */}
             <div className="space-y-4 pt-2">
-              <h3 className="text-sm font-medium text-muted-foreground">Endereço</h3>
+              <h3 className="text-sm font-medium text-muted-foreground">
+                Endereço
+              </h3>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <FormField
                   control={form.control}
@@ -233,7 +277,11 @@ export function CompanyProfileForm() {
                       <FormControl>
                         <div className="relative">
                           <MapPin className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                          <Input className="pl-10" placeholder="Rua, número, complemento" {...field} />
+                          <Input
+                            className="pl-10"
+                            placeholder="Rua, número, complemento"
+                            {...field}
+                          />
                         </div>
                       </FormControl>
                       <FormMessage />
@@ -281,15 +329,18 @@ export function CompanyProfileForm() {
                 />
               </div>
             </div>
-
           </CardContent>
           <CardFooter className="flex flex-col sm:flex-row justify-end gap-3 border-t pt-6 mt-4">
-            <Button type="submit" disabled={mutation.isPending} className="bg-primary hover:bg-primary/90">
-              {mutation.isPending ? "Salvando..." : "Salvar Alterações"}
+            <Button
+              type="submit"
+              disabled={mutation.isPending}
+              className="bg-primary hover:bg-primary/90"
+            >
+              {mutation.isPending ? 'Salvando...' : 'Salvar Alterações'}
             </Button>
           </CardFooter>
         </form>
       </Form>
     </>
-  )
+  );
 }
