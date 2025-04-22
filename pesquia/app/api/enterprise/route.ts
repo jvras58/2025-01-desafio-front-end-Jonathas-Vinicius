@@ -76,13 +76,13 @@ export async function PUT(request: Request) {
     const updated = await prisma.enterprise.update({
       where: { id: existing.id },
       data: {
-        name: parsed.data.name,
+        name: parsed.data.companyName,
         cnpj: parsed.data.cnpj,
         emailCommercial: parsed.data.emailCommercial,
         phone: parsed.data.phone,
         address: parsed.data.address,
         city: parsed.data.city,
-        cep: parsed.data.cep,
+        cep: parsed.data.companyCep,
       },
       select: {
         id: true,

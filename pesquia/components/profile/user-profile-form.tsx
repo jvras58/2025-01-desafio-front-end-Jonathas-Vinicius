@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { User, Mail, Lock, Loader2, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { toast } from 'sonner';
@@ -114,7 +114,6 @@ export function UserProfileForm() {
           <CardContent className="space-y-6 pt-4">
             <div className="flex flex-col items-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-6">
             <Avatar className="h-24 w-24">
-              <AvatarImage src="/placeholder.svg?height=96&width=96" />
               <AvatarFallback>
                 {userData?.profile?.name
                   ? userData.profile.name.slice(0, 2)

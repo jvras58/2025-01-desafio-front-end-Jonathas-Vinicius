@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { UserProfileForm } from "@/components/profile/user-profile-form"
-// import { CompanyProfileForm } from "@/components/profile/company-profile-form"
+import { CompanyProfileForm } from "@/components/profile/company-profile-form"
 import { Card } from "@/components/ui/card"
 
 export function ProfileSettings() {
@@ -22,7 +22,7 @@ export function ProfileSettings() {
       </TabsContent>
       <TabsContent value="company">
         <Card>
-          {/* <CompanyProfileForm /> */}
+          <CompanyProfileForm />
         </Card>
       </TabsContent>
     </Tabs>
