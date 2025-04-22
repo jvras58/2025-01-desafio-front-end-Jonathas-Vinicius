@@ -226,6 +226,7 @@ export function UserProfileForm() {
                           />
                         </div>
                       </FormControl>
+                      {/*FIXME: isso não esta funcionando na pratica kk é obrigatorio colocar a senha atual (que ate que é util... talvez fazer os nova senha ser opcional quando tiver nesse forms )  */}
                       <FormDescription>
                         Deixe em branco para manter a senha atual
                       </FormDescription>
