@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css';
+import '@/styles/globals.css';
 import { Toaster } from 'sonner';
-import { Providers } from '@/providers/providers';
+import { UseQueryProviders } from '@/providers/queryProviders';
 import { SessionProvider } from 'next-auth/react';
 import { auth } from '@/lib/auth';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -40,10 +40,10 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Providers>
+            <UseQueryProviders>
               {children}
               <Toaster />
-            </Providers>
+            </UseQueryProviders>
           </ThemeProvider>
         </SessionProvider>
       </body>
