@@ -57,7 +57,9 @@ export function Header({ user }: HeaderProps) {
                       <span>Perfil</span>
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => signOut({ callbackUrl: '/' })}>
+                  <DropdownMenuItem
+                    onClick={() => signOut({ callbackUrl: '/' })}
+                  >
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Sair</span>
                   </DropdownMenuItem>
