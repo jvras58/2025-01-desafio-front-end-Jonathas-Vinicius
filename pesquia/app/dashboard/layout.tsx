@@ -3,8 +3,8 @@ import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 
 import { DashboardSidebar } from '@/components/dashboard/sidebar';
-import { DashboardHeader } from '@/components/dashboard/header';
 import { auth } from '@/lib/auth';
+import { Header } from '@/components/header';
 
 export const metadata: Metadata = {
   title: 'Dashboard-PesquIA',
@@ -24,7 +24,7 @@ export default async function DashboardLayout({
 
   return (
     <div className="flex min-h-screen flex-col">
-      <DashboardHeader user={session.user} />
+      <Header user={session.user} />
       <div className="flex flex-1">
         <DashboardSidebar />
         <main className="flex-1 p-4 md:p-6 bg-muted/40">{children}</main>
