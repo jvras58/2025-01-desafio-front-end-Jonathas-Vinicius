@@ -2,8 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Fish, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Header } from '@/components/header';
-import { Footer } from '@/components/footer';
 
 export const metadata: Metadata = {
   title: 'pesquIA - ERP para Gestão de Produtos de Pescaria',
@@ -13,9 +11,6 @@ export const metadata: Metadata = {
 export default function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col">
-      {/* Header */}
-      <Header />
-
       <main className="flex-1">
         {/* Hero Section */}
         <section className="bg-muted/40 py-20 md:py-32">
@@ -81,9 +76,6 @@ export default function LandingPage() {
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }

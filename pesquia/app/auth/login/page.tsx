@@ -1,6 +1,4 @@
 import { LoginForm } from '@/components/auth/login-form';
-import { Footer } from '@/components/footer';
-import { Header } from '@/components/header';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -11,8 +9,6 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <>
-      <Header />
       <div className="flex min-h-screen items-center justify-center">
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
@@ -35,7 +31,5 @@ export default function LoginPage() {
           </p>
         </div>
       </div>
-      <Footer />
-    </>
   );
 }

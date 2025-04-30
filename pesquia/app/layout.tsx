@@ -6,6 +6,8 @@ import { UseQueryProviders } from '@/providers/queryProviders';
 import { SessionProvider } from 'next-auth/react';
 import { auth } from '@/lib/auth';
 import { ThemeProvider } from '@/components/theme-provider';
+import { Footer } from '@/components/footer';
+import { Header } from '@/components/header';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -41,7 +43,9 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <UseQueryProviders>
+              <Header user={session?.user} />
               {children}
+              <Footer />
               <Toaster />
             </UseQueryProviders>
           </ThemeProvider>
