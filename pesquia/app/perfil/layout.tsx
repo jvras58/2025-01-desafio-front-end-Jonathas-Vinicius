@@ -4,7 +4,6 @@ import type { Metadata } from 'next';
 
 import { DashboardSidebar } from '@/components/dashboard/sidebar';
 import { auth } from '@/lib/auth';
-import { Header } from '@/components/header';
 
 export const metadata: Metadata = {
   title: 'Perfil-PesquIA',
