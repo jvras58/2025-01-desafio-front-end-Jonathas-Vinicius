@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { auth } from '@/lib/auth';
+import type { Prisma } from '@prisma/client';
 
 export async function GET() {
   try {
@@ -107,7 +108,7 @@ export async function POST(request: Request) {
       totalValue += Number(item.unitPrice) * item.quantity;
     }
 
-    const sale = await prisma.$transaction(async (tx) => {
+    const sale = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const newSale = await tx.sale.create({
         data: {
           userId: userId,

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { auth } from '@/lib/auth';
 import { productSchema } from '@/schemas/product-schema';
+import { Prisma } from '@prisma/client';
 
 export async function GET() {
   try {
@@ -87,7 +88,7 @@ export async function POST(request: Request) {
     const validatedData = validationResult.data;
 
     // transaction não é muito necessario mas vou deixar pra manter a consistência...
-    const product = await prisma.$transaction(async (tx) => {
+    const product = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const newProduct = await tx.product.create({
         data: {
           name: validatedData.name,

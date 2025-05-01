@@ -1,6 +1,7 @@
 'use server';
 
 import { prisma } from '@/lib/db';
+import type { Prisma } from '@prisma/client';
 
 // import { UserRole } from "@prisma/client"
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
@@ -32,7 +33,7 @@ export const register = async (user: z.infer<typeof RegisterformSchema>) => {
     } = validationResult.data;
     const hashedPassword = await bcryptjs.hash(password, 10);
 
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const createdUser = await tx.user.create({
         data: {
           name,

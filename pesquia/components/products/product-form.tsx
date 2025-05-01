@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import { Textarea } from '@/components/ui/textarea';
-import type { Product as ProductModel } from '@/lib/generated/prisma';
 import {
   Select,
   SelectContent,
@@ -34,6 +33,23 @@ import {
 import { ProductFormValues, productSchema } from '@/schemas/product-schema';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetcher } from '@/lib/api';
+
+//TODO: separar a interface para types
+export interface ProductModel {
+  id?: string;
+  name: string;
+  description?: string;
+  price: number;
+  sku?: string;
+  category?: string;
+  stock: number;
+  stockMin?: number;
+  stockMax?: number;
+  brand?: string;
+  supplier?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
 
 const defaultValues: Partial<ProductFormValues> = {
   name: '',
