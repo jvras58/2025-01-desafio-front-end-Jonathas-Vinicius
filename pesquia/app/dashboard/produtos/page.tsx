@@ -1,13 +1,13 @@
-import type { Metadata } from "next"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ProductList } from "@/components/products/product-list"
-import { ProductFilters } from "@/components/products/product-filters"
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { ProductList } from '@/components/products/product-list';
+import { ProductFilters } from '@/components/products/product-filters';
 
 export const metadata: Metadata = {
-  title: "Produtos | pesquIA",
-  description: "Gerenciamento de produtos do sistema pesquIA",
-}
+  title: 'Produtos | pesquIA',
+  description: 'Gerenciamento de produtos do sistema pesquIA',
+};
 
 export default function ProductsPage() {
   return (
@@ -21,5 +21,5 @@ export default function ProductsPage() {
       <ProductFilters />
       <ProductList />
     </div>
-  )
+  );
 }

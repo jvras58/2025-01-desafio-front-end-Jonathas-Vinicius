@@ -2,14 +2,15 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { auth } from '@/lib/auth';
 import { productSchema } from '@/schemas/product-schema';
+import { Prisma } from '@prisma/client';
 
 export async function GET() {
   try {
     const session = await auth();
     if (!session || !session.user || !session.user.id) {
       return NextResponse.json(
-        { error: 'Usuário não autenticado' }, 
-        { status: 401 }
+        { error: 'Usuário não autenticado' },
+        { status: 401 },
       );
     }
     const userId = session.user.id;
@@ -22,8 +23,8 @@ export async function GET() {
 
     if (!enterprise) {
       return NextResponse.json(
-        { error: 'Empresa não encontrada para o usuário' }, 
-        { status: 404 }
+        { error: 'Empresa não encontrada para o usuário' },
+        { status: 404 },
       );
     }
 
@@ -40,8 +41,8 @@ export async function GET() {
   } catch (error) {
     console.error('Erro ao buscar produtos:', error);
     return NextResponse.json(
-      { error: 'Erro ao buscar produtos' }, 
-      { status: 500 }
+      { error: 'Erro ao buscar produtos' },
+      { status: 500 },
     );
   }
 }
@@ -51,8 +52,8 @@ export async function POST(request: Request) {
     const session = await auth();
     if (!session || !session.user || !session.user.id) {
       return NextResponse.json(
-        { error: 'Usuário não autenticado' }, 
-        { status: 401 }
+        { error: 'Usuário não autenticado' },
+        { status: 401 },
       );
     }
     const userId = session.user.id;
@@ -65,29 +66,29 @@ export async function POST(request: Request) {
 
     if (!enterprise) {
       return NextResponse.json(
-        { error: 'Empresa não encontrada para o usuário' }, 
-        { status: 404 }
+        { error: 'Empresa não encontrada para o usuário' },
+        { status: 404 },
       );
     }
 
     const data = await request.json();
-    
+
     const validationResult = productSchema.safeParse(data);
-    
+
     if (!validationResult.success) {
       return NextResponse.json(
-        { 
-          error: 'Dados inválidos', 
-          details: validationResult.error.format() 
-        }, 
-        { status: 400 }
+        {
+          error: 'Dados inválidos',
+          details: validationResult.error.format(),
+        },
+        { status: 400 },
       );
     }
-    
+
     const validatedData = validationResult.data;
-    
+
     // transaction não é muito necessario mas vou deixar pra manter a consistência...
-    const product = await prisma.$transaction(async (tx) => {
+    const product = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const newProduct = await tx.product.create({
         data: {
           name: validatedData.name,
@@ -101,22 +102,21 @@ export async function POST(request: Request) {
           enterpriseId: enterprise.id,
         },
       });
-      
+
       return await tx.product.findUnique({
-        where: { id: newProduct.id }
+        where: { id: newProduct.id },
       });
     });
-    
+
     return NextResponse.json(
-      { message: 'Produto criado com sucesso', product }, 
-      { status: 201 }
+      { message: 'Produto criado com sucesso', product },
+      { status: 201 },
     );
   } catch (error) {
     console.error('Erro ao criar produto:', error);
     return NextResponse.json(
-      { error: 'Erro ao criar produto' }, 
-      { status: 500 }
+      { error: 'Erro ao criar produto' },
+      { status: 500 },
     );
   }
 }
-

@@ -1,71 +1,82 @@
-"use client"
+'use client';
 
-import { useState } from "react"
-import { useForm, useWatch } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Loader2 } from "lucide-react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { toast } from "sonner"
+import { useState } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Separator } from "@/components/ui/separator"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle } from "lucide-react"
-import type { z } from "zod"
-import { RegisterformSchema, RegisterFormValues } from "@/schemas/register-schema"
-import { register } from "@/actions/register/register"
+import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Separator } from '@/components/ui/separator';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { AlertCircle } from 'lucide-react';
+import type { z } from 'zod';
+import {
+  RegisterformSchema,
+  RegisterFormValues,
+} from '@/schemas/register-schema';
+import { register } from '@/actions/register/register';
 
-type FormValues = z.infer<typeof RegisterformSchema>
+type FormValues = z.infer<typeof RegisterformSchema>;
 
 export function RegisterForm() {
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
   // const searchParams = useSearchParams()
   // const callbackUrl = searchParams?.get("callbackUrl") || "/dashboard"
 
   const form = useForm<RegisterFormValues>({
-    resolver: zodResolver(RegisterformSchema) as any,
+    resolver: zodResolver(RegisterformSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
       isBusinessOwner: false,
-      companyName: "",
-      cnpj: "",
-      companyAddress: "",
-      companyCep: "",
+      companyName: '',
+      cnpj: '',
+      companyAddress: '',
+      companyCep: '',
     },
-  })
+  });
 
   const isBusinessOwner = useWatch({
     control: form.control,
-    name: "isBusinessOwner",
-  })
+    name: 'isBusinessOwner',
+  });
 
   async function onSubmit(data: FormValues) {
-    setIsLoading(true)
-    setError(null)
+    setIsLoading(true);
+    setError(null);
 
     try {
-      const result = await register(data)
+      const result = await register(data);
 
       if (result.error) {
-        setError(result.error)
-        toast.error("Falha no cadastro", {
+        setError(result.error);
+        toast.error('Falha no cadastro', {
           description: result.error,
-        })
-        setIsLoading(false)
-        return
+        });
+        setIsLoading(false);
+        return;
       }
 
-      toast.success("Cadastro realizado com sucesso!", {
-        description: "Você será redirecionado para a página de Login.",
-      })
+      toast.success('Cadastro realizado com sucesso!', {
+        description: 'Você será redirecionado para a página de Login.',
+      });
 
       // Fixme: o login automático não está funcionando corretamente
       // ⨯ [TypeError: Function.prototype.apply was called on #<Object>, which is an object and not a function]
@@ -90,15 +101,18 @@ export function RegisterForm() {
       }
       */
 
-      router.push("/auth/login")
+      router.push('/auth/login');
     } catch (error) {
-      console.error("Register error:", error)
-      setError(error instanceof Error ? error.message : "Ocorreu um erro inesperado")
-      toast.error("Erro ao criar conta", {
-        description: "Ocorreu um erro inesperado durante o cadastro. Tente novamente mais tarde.",
-      })
+      console.error('Register error:', error);
+      setError(
+        error instanceof Error ? error.message : 'Ocorreu um erro inesperado',
+      );
+      toast.error('Erro ao criar conta', {
+        description:
+          'Ocorreu um erro inesperado durante o cadastro. Tente novamente mais tarde.',
+      });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
@@ -178,11 +192,16 @@ export function RegisterForm() {
             render={({ field }) => (
               <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                 <FormControl>
-                  <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
                 </FormControl>
                 <div className="space-y-1 leading-none">
                   <FormLabel>Cadastrar como dono de empresa</FormLabel>
-                  <FormDescription>Marque esta opção se você deseja cadastrar uma empresa.</FormDescription>
+                  <FormDescription>
+                    Marque esta opção se você deseja cadastrar uma empresa.
+                  </FormDescription>
                 </div>
               </FormItem>
             )}
@@ -245,7 +264,10 @@ export function RegisterForm() {
                 <FormItem>
                   <FormLabel>Endereço da empresa</FormLabel>
                   <FormControl>
-                    <Input placeholder="Rua Exemplo, 123 - Cidade/UF" {...field} />
+                    <Input
+                      placeholder="Rua Exemplo, 123 - Cidade/UF"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -261,10 +283,10 @@ export function RegisterForm() {
               Cadastrando...
             </>
           ) : (
-            "Cadastrar"
+            'Cadastrar'
           )}
         </Button>
       </form>
     </Form>
-  )
+  );
 }

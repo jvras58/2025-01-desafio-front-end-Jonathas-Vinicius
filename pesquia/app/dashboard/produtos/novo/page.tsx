@@ -1,13 +1,13 @@
-import type { Metadata } from "next"
-import Link from "next/link"
-import { ChevronLeft } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { ProductForm } from "@/components/products/product-form"
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { ChevronLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { ProductForm } from '@/components/products/product-form';
 
 export const metadata: Metadata = {
-  title: "Novo Produto | pesquIA",
-  description: "Adicionar novo produto ao sistema pesquIA",
-}
+  title: 'Novo Produto | pesquIA',
+  description: 'Adicionar novo produto ao sistema pesquIA',
+};
 
 export default function NewProductPage() {
   return (
@@ -22,5 +22,5 @@ export default function NewProductPage() {
       </div>
       <ProductForm />
     </div>
-  )
+  );
 }

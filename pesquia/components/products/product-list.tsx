@@ -1,18 +1,24 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Link from "next/link";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetcher } from "@/lib/api";
-import { Edit, MoreHorizontal, Trash, Loader2, AlertCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react';
+// import Link from 'next/link';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { fetcher } from '@/lib/api';
+import {
+  // Edit,
+  MoreHorizontal,
+  // Trash,
+  Loader2,
+  AlertCircle,
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 import {
   Table,
   TableBody,
@@ -20,7 +26,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,8 +34,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Badge } from "@/components/ui/badge";
+} from '@/components/ui/dropdown-menu';
+import { Badge } from '@/components/ui/badge';
 import {
   Dialog,
   DialogContent,
@@ -37,8 +43,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { toast } from "sonner";
+} from '@/components/ui/dialog';
+import { toast } from 'sonner';
 
 type Product = {
   id: string;
@@ -46,36 +52,42 @@ type Product = {
   category: string;
   price: number;
   stock: number;
-  status: "in-stock" | "low-stock" | "out-of-stock";
+  status: 'in-stock' | 'low-stock' | 'out-of-stock';
 };
 
 const statusMap = {
-  "in-stock": { label: "Em estoque", variant: "default" },
-  "low-stock": { label: "Estoque baixo", variant: "warning" },
-  "out-of-stock": { label: "Sem estoque", variant: "destructive" },
-  "em-analise": { label: "Em análise", variant: "secondary" },
+  'in-stock': { label: 'Em estoque', variant: 'default' },
+  'low-stock': { label: 'Estoque baixo', variant: 'warning' },
+  'out-of-stock': { label: 'Sem estoque', variant: 'destructive' },
+  'em-analise': { label: 'Em análise', variant: 'secondary' },
 } as const;
 
 export function ProductList() {
   const queryClient = useQueryClient();
 
-  const { data: resp, isLoading, isError, error } = useQuery<{
+  const {
+    data: resp,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<{
     products: Product[];
   }>({
-    queryKey: ["products"],
-    queryFn: () => fetcher("/api/product"),
+    queryKey: ['products'],
+    queryFn: () => fetcher('/api/product'),
     staleTime: 1000 * 60 * 5,
   });
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) =>
-      fetcher<void>(`/api/product/${id}`, { method: "DELETE" }),
+      fetcher<void>(`/api/product/${id}`, { method: 'DELETE' }),
     onSuccess: () => {
-      toast.success("Produto excluído com sucesso!");
-      queryClient.invalidateQueries({ queryKey: ["products"] });
+      toast.success('Produto excluído com sucesso!');
+      queryClient.invalidateQueries({ queryKey: ['products'] });
     },
-    onError: (err: any) => {
-      toast.error(`Erro ao excluir: ${err.message}`);
+    onError: (err: unknown) => {
+      const message = err instanceof Error ? err.message : String(err);
+      toast.error(`Erro ao excluir: ${message}`);
     },
   });
 
@@ -92,19 +104,20 @@ export function ProductList() {
     setDialogOpen(false);
   };
 
-  if (isLoading) return (
-    <div className="flex items-center justify-center py-8">
-      <Loader2 className="animate-spin mr-2 h-5 w-5" />
-      <span>Carregando produtos…</span>
-    </div>
-  );
-  if (isError) return (
-    <div className="flex items-center justify-center text-destructive py-8">
-      <AlertCircle className="mr-2 h-5 w-5" />
-      <span>Erro: {(error as Error).message}</span>
-    </div>
-  );
-
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center py-8">
+        <Loader2 className="animate-spin mr-2 h-5 w-5" />
+        <span>Carregando produtos…</span>
+      </div>
+    );
+  if (isError)
+    return (
+      <div className="flex items-center justify-center text-destructive py-8">
+        <AlertCircle className="mr-2 h-5 w-5" />
+        <span>Erro: {(error as Error).message}</span>
+      </div>
+    );
 
   return (
     <Card>
@@ -132,18 +145,22 @@ export function ProductList() {
                 <TableCell>{p.name}</TableCell>
                 <TableCell>{p.category}</TableCell>
                 <TableCell>
-                  {new Intl.NumberFormat("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
+                  {new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
                   }).format(p.price)}
                 </TableCell>
                 <TableCell>{p.stock}</TableCell>
                 <TableCell>
-                <Badge
-                  variant={(statusMap[p.status] || statusMap["em-analise"]).variant as any}
-                >
-                  {(statusMap[p.status] || statusMap["em-analise"]).label}
-                </Badge>
+                  <Badge
+                    variant={
+                      statusMap[p.status]?.variant ??
+                      statusMap['em-analise'].variant
+                    }
+                  >
+                    {statusMap[p.status]?.label ??
+                      statusMap['em-analise'].label}
+                  </Badge>
                 </TableCell>
                 <TableCell className="text-right">
                   <DropdownMenu>
@@ -188,7 +205,7 @@ export function ProductList() {
                 onClick={confirmDelete}
                 disabled={deleteMutation.isPending}
               >
-                {deleteMutation.isPending ? "Excluindo…" : "Excluir"}
+                {deleteMutation.isPending ? 'Excluindo…' : 'Excluir'}
               </Button>
             </DialogFooter>
           </DialogContent>

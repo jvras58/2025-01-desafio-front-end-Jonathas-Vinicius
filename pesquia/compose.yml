@@ -1,0 +1,33 @@
+services:
+  app-production:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: prod
+    container_name: pesquia-next-prod
+    ports:
+      - "3000:3000"
+    env_file: .env
+    environment:
+      - NODE_ENV=production
+      - AUTH_TRUST_HOST=true
+      - AUTH_SECRET=${AUTH_SECRET}
+    restart: unless-stopped
+
+
+  app-development:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    container_name: app-pesquia-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    env_file: .env
+    environment:
+      - NODE_ENV=development
+      - AUTH_TRUST_HOST=true
+      - AUTH_SECRET=${AUTH_SECRET}
+    restart: unless-stopped
