@@ -131,6 +131,58 @@ yarn dev
    > A página principal da landing page será carregada
 
 
+## ⚙️ Instalação e Configuração COM DOCKER
+
+### Pré-requisitos
+
+- Docker Engine instalado e configurado.  
+  [Veja como instalar o Docker Engine](https://docs.docker.com/engine/install/)
+
+### Passos para rodar em produção com Docker
+
+1. **Configure o arquivo `.env`**
+
+   Antes de iniciar, crie e configure o arquivo `.env` na pasta `/pesquia` conforme o modelo `.env-sample`.  
+   > **Dica:** Apenas as variáveis necessárias para produção (ex: `AUTH_SECRET`, `DATABASE_URL`) precisam estar presentes.
+
+2. **Build e execução do container**
+
+   No terminal, dentro da pasta `/pesquia`, execute:
+
+   ```sh
+   docker compose build app-production
+   docker compose up app-production
+   ```
+
+   Aguarde o carregamento dos comandos.
+
+3. **Acesse a aplicação**
+
+   Abra no navegador:
+   ```
+   http://localhost:3000/
+   ```
+
+   A landing page principal será carregada.
+
+### Observações sobre variáveis de ambiente
+
+- Apenas as variáveis especificadas na seção `environment` do `compose.yml` serão passadas para o container.
+- Exemplo: para passar apenas `AUTH_SECRET` do `.env`, garanta que ela está definida no `.env` e referenciada assim no `compose.yml`:
+
+  ```yaml
+  environment:
+    - AUTH_SECRET=${AUTH_SECRET}
+  ```
+
+- No `compose.yml` também é possível carregar todas as variáveis do `.env` usando:
+  ```yaml
+  env_file: .env
+  ```
+  Porém, o bloco `environment` é prioritário na execução e sobrescreve valores do `env_file` caso haja conflito.
+
+> Se quiser passar apenas algumas variáveis, basta removê-las do `env_file` e manter apenas no `environment`.
+
 ## 💻 Funcionalidades Principais
 
 [landing Page](http://localhost:3000/)

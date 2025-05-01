@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "postinstall": "prisma generate",
+    "postinstall": "if [ \"$SKIP_PRISMA_GENERATE\" != \"true\" ]; then prisma generate; fi",
     "generate": "prisma generate",
     "migrate": "prisma migrate dev",
     "migrate:prod": "prisma migrate deploy",
