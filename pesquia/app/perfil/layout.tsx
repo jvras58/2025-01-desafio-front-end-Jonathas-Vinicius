@@ -24,7 +24,6 @@ export default async function PerfilLayout({
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Header user={session.user} />
       <div className="flex flex-1">
         <DashboardSidebar />
         <main className="flex-1 p-4 md:p-6 bg-muted/40">{children}</main>
